@@ -1,0 +1,839 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"  />
+  <link rel="icon" type="image/x-icon" href="http://localhost:8081/static/35b724b5/images/svgs/logo.svg">
+  <title>Jenkins Documentation and Implementation</title>
+  <style>
+    :root {
+    --primary: #3498db;
+    --dark: #2c3e50;
+    --light-bg: #f4f4f4;
+    --text-color: #333;
+    --section-bg: #ffffff;
+  }
+
+  * {
+    box-sizing: border-box;
+    scroll-behavior: smooth;
+  }
+
+  body {
+    margin: 0;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    background: var(--light-bg);
+    color: var(--text-color);
+    line-height: 1.6;
+  }
+
+  .sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 250px;
+    background: var(--dark);
+    color: #fff;
+    overflow-y: auto;
+    padding: 20px 0;
+    z-index: 999;
+  }
+
+  .sidebar h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 1.5rem;
+    border-bottom: 1px solid #3e566e;
+    padding-bottom: 10px;
+  }
+
+  .sidebar a {
+    display: block;
+    padding: 12px 24px;
+    text-decoration: none;
+    color: #ecf0f1;
+    transition: all 0.3s ease;
+    font-weight: 500;
+  }
+
+  .sidebar a:hover,
+  .sidebar a.active {
+    background: var(--primary);
+    color: white;
+    border-left: 4px solid white;
+  }
+
+  .container {
+    margin-left: 270px;
+    padding: 40px 40px 100px;
+    background: var(--section-bg);
+  }
+
+  h1,
+  h2,
+  h3 {
+    color: var(--dark);
+  }
+
+  h1 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    border-bottom: 2px solid var(--primary);
+    padding-bottom: 8px;
+  }
+
+  section {
+    background: #fff;
+    padding: 30px;
+    border-radius: 10px;
+    margin-bottom: 50px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    opacity: 0;
+    transform: translateY(50px);
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    border-radius: 6px;
+    overflow: hidden;
+  }
+
+  table th,
+  table td {
+    padding: 12px 16px;
+    border: 1px solid #ccc;
+  }
+
+  table thead {
+    background: #34495e;
+    color: white;
+  }
+
+  pre,
+  code {
+    background: #f0f0f0;
+    padding: 8px 12px;
+    border-radius: 6px;
+    font-family: monospace;
+  }
+
+  ul,
+  ol {
+    padding-left: 20px;
+  }
+
+  img {
+    max-width: 100%;
+    border-radius: 8px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+  }
+
+  @media (max-width: 768px) {
+    .sidebar {
+      position: static;
+      width: 100%;
+      height: auto;
+    }
+
+    .container {
+      margin-left: 0;
+      padding: 20px;
+    }
+  }
+  .sidebar a::before {
+  content: "👉 ";
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.sidebar a:hover::before {
+  opacity: 1;
+}
+
+  </style>
+</head>
+
+<body>
+  
+  <div class="sidebar">
+    <h2>Jenkins Guide</h2>
+    <img style="width: 50%; text-align: center; border: transparent;" src="http://localhost:8081/static/35b724b5/images/svgs/logo.svg" alt="Logo">
+    <a href="#overview">Why Jenkins?</a>
+    <a href="#installation">Installation</a>
+    <a href="#configrationsandplugins">Configurations and Plugins Installation</a>
+    <a href="#tutorial">Basic Tutorial</a>
+    <a href="#project">Project Implementation</a>
+  </div>
+
+  <div class="container">
+    <section id="overview">
+      <h1>📘 Jenkins Documentation and Implementation</h1>
+      <p>This document describes what Jenkins is, why it’s used in modern development workflows, how we installed and
+        configured it, and the automation features we implemented in our project.</p>
+
+      <h2>📌 What is Jenkins?</h2>
+      <p><strong>Jenkins</strong> is an open-source <strong>automation server</strong> written in Java...</p>
+      <ul>
+        <li>Automate the execution of test cases</li>
+        <li>Integrate with GitHub</li>
+        <li>Schedule jobs</li>
+        <li>Monitor results and notify via email</li>
+      </ul>
+    </section>
+
+    <!-- ───────────────── INSTALLATION ───────────────── -->
+    <section id="installation">
+      <h2>🛠 Installation (Windows +.war)</h2>
+
+      <ol>
+        <!-- STEP 1 -->
+        <li><strong>Download the war</strong><br />
+          Open <a href="https://www.jenkins.io/download/" target="_blank"
+            rel="noopener">https://www.jenkins.io/download/</a> and click the
+          <em>Windows</em> tile under <code>Download Jenkins 2.x LTS for:</code>.
+          <br /><br />
+          <img src="assets/S1.png" alt="Jenkins download page – Windows link highlighted"
+            style="max-width:100%;border:1px solid #ccc;border-radius:6px" />
+        </li><br />
+
+        <!-- STEP 2 -->
+        <li><strong>Run the WAR locally</strong><br />
+          From a terminal / PowerShell window, start Jenkins with:
+          <pre><code>java -jar "C:\Users\nihir\Downloads\jenkins.war" --httpPort=8081</code></pre>
+          <ul>
+            <li><code>-jar</code> tells the JVM to execute the WAR as a runnable JAR.</li>
+            <li><code>--httpPort=8081</code> overrides the default <code>8080</code> in case it’s already in use.
+              Pick any free port (<code>8082</code>, <code>9090</code>, etc.).</li>
+            <li>The absolute path lets you keep the WAR anywhere you like.</li>
+          </ul>
+        </li><br />
+
+        <!-- STEP 3 -->
+        <li><strong>Grab the initial admin password</strong><br />
+          The first time Jenkins starts it prints a 32‑character “secret key” in the console
+          **and** shows it on screen:<br /><br />
+          <img src="assets/S2.png" alt="Unlock Jenkins screen showing initial admin password"
+            style="max-width:100%;border:1px solid #ccc;border-radius:6px" />
+        </li><br />
+
+        <!-- STEP 4 -->
+        <li><strong>Unlock &amp; finish setup</strong><br />
+          <ol type="a">
+            <li>Visit <code>http://localhost:8081</code> (or whatever port you chose).</li>
+            <li>Paste the secret key to unlock Jenkins.</li>
+            <li>Create your first <strong>admin username &amp; password</strong>.</li>
+            <li>Choose “Install suggested plugins” and wait for completion.</li>
+          </ol>
+          🎉 Jenkins is now ready to create jobs!
+        </li>
+      </ol>
+    </section>
+    <section id="configrationsandplugins">
+      <h2>⚙️ Global Configuration and Plugins Installation</h2>
+
+      <p>This section covers how to set up global tools like <strong>JDK</strong>, <strong>Maven</strong>, and configure
+        <strong>Email Notifications</strong> and essential <strong>Plugins</strong> in Jenkins.</p>
+
+      <h3>🔧 Step 1: Access Jenkins Global Tool Configuration</h3>
+      <ul>
+        <li>Go to <strong>Manage Jenkins</strong></li>
+        <img src="assets/S13.png" style="max-width:100%; border:1px solid #ccc; border-radius:6px" alt="Manage Jenkins">
+
+        <li>Click on <strong>Tools</strong> inside Global Configuration</li>
+        <li>Select <strong>JDK Installations</strong></li>
+        <img src="assets/S14.png" style="max-width:100%; border:1px solid #ccc; border-radius:6px" alt="Tools Page">
+
+        <li>Click <strong>Add JDK</strong>, uncheck <code>Install automatically</code> and provide the path of your
+          system's JDK</li>
+        <img src="assets/S15.png" style="max-width:100%; border:1px solid #ccc; border-radius:6px"
+          alt="Add JDK Configuration">
+
+        <li>Repeat similar steps to add a <strong>Maven</strong> installation</li>
+        <img src="assets/S16.png" style="max-width:100%; border:1px solid #ccc; border-radius:6px"
+          alt="Add Maven Configuration">
+
+        <li>Click <strong>Apply</strong> and then <strong>Save</strong></li>
+      </ul>
+
+      <h3>📧 Step 2: Configure Email Notification (SMTP)</h3>
+      <ul>
+        <li>Go back to <strong>Manage Jenkins</strong></li>
+        <li>Click on <strong>Configure System</strong></li>
+        <li>Scroll to the <strong>Email Notification</strong> section</li>
+        <img src="assets/S17.png" style="max-width:100%; border:1px solid #ccc; border-radius:6px"
+          alt="Email Notification Setup">
+
+        <li>Enter your SMTP server details (e.g., smtp.gmail.com for Gmail)</li>
+        <li>Click <strong>Advanced</strong> to enter:
+          <ul>
+            <li>SMTP Port (e.g., 587)</li>
+            <li>Username and Password (use App Password if 2FA enabled)</li>
+            <li>Enable TLS/SSL if required</li>
+          </ul>
+        </li>
+        <li>Click <strong>Apply</strong> and then <strong>Save</strong></li>
+      </ul>
+
+      <h3>🧩 Step 3: Install Required Plugins</h3>
+      <ul>
+        <li>Go to <strong>Manage Jenkins</strong> > <strong>Manage Plugins</strong></li>
+        <li>Switch to the <strong>Available</strong> tab</li>
+        <li>Search and install the following plugins (or verify in <strong>Installed</strong> tab if already present):
+          <ul>
+            <li><strong>HTML Publisher Plugin</strong> – for publishing HTML test reports</li>
+            <li><strong>Email Extension Plugin</strong> – for advanced email notifications with build details</li>
+          </ul>
+        </li>
+        <li>Restart Jenkins if prompted</li>
+      </ul>
+    </section>
+
+
+
+    <section id="tutorial">
+      <section id="dashboard">
+        <h2>📊 Jenkins Dashboard Options</h2>
+        <img src="assets/S3.png" style="max-width:100%;border:1px solid #ccc;border-radius:6px">
+        <p>The Jenkins Dashboard is the central hub where you manage all your jobs and system settings.</p>
+        <table>
+          <thead>
+            <tr>
+              <th>Option</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>➕ New Item</strong></td>
+              <td>Create a new job/project. You can choose between Freestyle, Pipeline, or Multibranch projects.</td>
+            </tr>
+            <tr>
+              <td><strong>📜 Build History</strong></td>
+              <td>See logs of recent builds for all jobs, including pass/fail status, duration, and logs.</td>
+            </tr>
+            <tr>
+              <td><strong>⚙️ Manage Jenkins</strong></td>
+              <td>Admin panel to install plugins, configure global tools, manage credentials, and set security options.
+              </td>
+            </tr>
+            <tr>
+              <td><strong>📥 Build Queue</strong></td>
+              <td>Lists builds that are waiting to be executed if executors are busy.</td>
+            </tr>
+            <tr>
+              <td><strong>💻 Build Executor Status</strong></td>
+              <td>Shows currently running jobs and available executors (like job threads).</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div style="
+  background-color: #ecf0f1;
+  padding: 20px;
+  border-left: 6px solid #2980b9;
+  border-radius: 8px;
+  margin: 20px 0;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+">
+          <h3 style="color:#2c3e50; margin-top: 0;">➕To Create a New Item in Jenkins</h3>
+          <img src="assets/S4.png" alt="New Item in Jenkins"
+            style="max-width:100%;border:1px solid #ccc;border-radius:6px">
+          <p>
+            The <strong>New Item</strong> button in Jenkins allows you to create a new job or project. This is the
+            starting point for building any CI/CD pipeline.
+          </p>
+          <ul style="margin-left:20px;">
+            <li><strong>Freestyle Project:</strong> A general-purpose job type to run builds, shell scripts, test tools,
+              etc.</li>
+            <li><strong>Maven project:</strong> A job type to create a maven project.</li>
+            <li><strong>Pipeline:</strong> A job type to create a pipeline project using Jenkinsfile.</li>
+          </ul>
+          <p>
+            After selecting a project type, click <strong>OK Then Configuration Page Open For the Respective Job
+              item</strong>
+          </p>
+        </div>
+
+        <div style="
+  background-color: #fdfefe;
+  padding: 30px;
+  border-left: 6px solid #27ae60;
+  border-radius: 10px;
+  margin: 30px 0;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  line-height: 1.8;
+">
+          <h2 style="color:#2c3e50;">⚙️ Jenkins Job Configuration Page – Complete Overview</h2>
+
+          <blockquote style="background:#ecf0f1; padding:10px 15px; border-left:4px solid #2980b9;">
+            📘 This is the page that opens when you create a new Freestyle Project or Pipeline, or when you click
+            "Configure" on an existing job. It’s where you define how Jenkins should behave for that particular job.
+          </blockquote>
+
+          <hr>
+
+          <h3>1️⃣ General Section</h3>
+          <img src="assets/S5.png" alt="General Section in Configuration Page"
+            style="max-width:100%;border:1px solid #ccc;border-radius:6px">
+          <ul>
+            <li><strong>Project Name</strong>: The name of your job.</li>
+            <li><strong>Description</strong>: Optional. You can write what this job is about.</li>
+            <li><strong>Discard Old Builds</strong>: Set limits (like keep only last 10 builds) to save disk space.</li>
+            <li><strong>This project is parameterized</strong>: Enable this if your job accepts parameters (e.g.,
+              environment = QA/PROD).</li>
+            <li><strong>Disable this project</strong>: Prevents Jenkins from running this job until re-enabled.</li>
+          </ul>
+
+          <hr>
+
+          <h3>2️⃣ Source Code Management (SCM)</h3>
+          <p>Defines <strong>where your source code lives</strong>:</p>
+          <ul>
+            <img src="assets/S6.png" alt="" style="max-width:100%;border:1px solid #ccc;border-radius:6px">
+            <li><strong>None</strong>: No code needed.</li>
+            <img src="assets/S7.png" alt="" style="max-width:100%;border:1px solid #ccc;border-radius:6px">
+            <li><strong>Git</strong>: Most commonly used.
+              <ul>
+                <li>Add your GitHub or GitLab repo URL</li>
+                <li>If it's private, configure credentials</li>
+                <li>Set branch like <code>/main</code> or <code>/master</code></li>
+              </ul>
+            </li>
+          </ul>
+
+          <div style="background:#f4f6f7; border-left: 4px solid #7f8c8d; padding:10px; font-family:monospace;">
+            https://github.com/your-username/your-repo.git
+          </div>
+
+          <hr>
+
+          <h3>3️⃣ Build Triggers</h3>
+          <p>These settings control <strong>when Jenkins should run the job</strong>:</p>
+          <ul>
+            <li>
+              <strong>Build periodically</strong> – Schedule builds using CRON syntax to automate job execution at fixed
+              times.
+              <br><br>
+              ✅ This is what it looks like in Jenkins:<br><br>
+              <img src="assets/S8.png" alt="Jenkins Build Periodically"
+                style="max-width:100%; border:1px solid #ccc; border-radius:8px; padding:5px; background:#f9f9f9;">
+
+              <br><br>
+              🔍 <strong>Syntax Format:</strong>
+              <pre
+                style="background:#f0f0f0; padding:10px; border-left:4px solid #7f8c8d; border-radius:4px; font-family:monospace;">
+  MINUTE   HOUR   DOM   MONTH   DOW
+   (0-59) (0-23) (1-31) (1-12)  (0-7)
+  </pre>
+
+              🧠 <strong>Explanation of each field:</strong>
+              <ul>
+                <li><strong>MINUTE</strong> – Minute of the hour (0-59)</li>
+                <li><strong>HOUR</strong> – Hour of the day (0-23)</li>
+                <li><strong>DOM</strong> – Day of the month (1-31)</li>
+                <li><strong>MONTH</strong> – Month (1-12)</li>
+                <li><strong>DOW</strong> – Day of the week (0-7) where 0 and 7 both mean Sunday</li>
+              </ul>
+
+              <br>
+              ⚙️ <strong>Examples:</strong>
+              <ul>
+                <li><code>@daily</code> – Builds once every day at midnight (12:00 AM)</li>
+                <li><code>0 2 * * *</code> – Builds daily at 2:00 AM</li>
+                <li><code>30 6 * * 1-5</code> – Builds at 6:30 AM every weekday (Mon–Fri)</li>
+                <li><code>0 */2 * * *</code> – Builds every 2 hours</li>
+                <li><code>*/15 * * * *</code> – Builds every 15 minutes</li>
+                <li><code>0 10 1 * *</code> – Builds at 10:00 AM on the 1st of every month</li>
+              </ul>
+
+              <br>
+              🔐 Make sure your Jenkins has a stable system time and is always running, so jobs trigger as expected.
+            </li>
+
+            <li><strong>Poll SCM</strong> – Jenkins checks the Git repo at intervals and builds if changes are found
+            </li>
+            <li><strong>GitHub hook trigger for GITScm polling</strong> – Trigger a build automatically on GitHub push
+              via webhook</li>
+            <li>
+              <strong>Build after other projects are built</strong> – This trigger allows you to chain multiple Jenkins
+              jobs together. It ensures that this job runs automatically once one or more specified upstream jobs have
+              completed.
+
+              <br><br>
+              🔧 <strong>Why Use This?</strong>
+              <ul>
+                <li>To implement job dependencies (e.g., build backend first, then run frontend tests).</li>
+                <li>To create complex CI/CD pipelines without using Jenkins Pipelines (Scripted or Declarative).</li>
+                <li>To simplify job orchestration when you're not using shared pipeline files.</li>
+              </ul>
+
+              <br>
+              ⚙️ <strong>How to Configure:</strong>
+              <ol>
+                <li>Go to the job’s <code>Configure</code> page.</li>
+                <li>Scroll to <strong>Build Triggers</strong> section.</li>
+                <li>Check <strong>Build after other projects are built</strong>.</li>
+                <li>In the text box, enter the name(s) of the upstream project(s). You can list multiple jobs, separated
+                  by commas.</li>
+                <li>Save the configuration.</li>
+              </ol>
+
+              <br>
+              🧠 <strong>Behavior:</strong>
+              <ul>
+                <li>The current job will trigger automatically when <em>any</em> of the specified upstream jobs are
+                  completed (successfully or not — unless conditions are added).</li>
+                <li>To make it run only after a successful upstream build, configure "Post-build actions" in the
+                  upstream job using:
+                  <strong>"Build other projects" → Trigger only if build is stable"</strong>
+                </li>
+              </ul>
+
+              <br>
+              🔗 <strong>Use Case Example:</strong><br>
+              Let's say you have two jobs:
+              <ul>
+                <li><code>Build-Backend</code> – Compiles and packages the backend application.</li>
+                <li><code>Deploy-Backend</code> – Deploys the backend to a staging server.</li>
+              </ul>
+
+              You can configure <strong>Deploy-Backend</strong> to run automatically when <strong>Build-Backend</strong>
+              finishes.
+
+              <br><br>
+              💡 This is helpful when you're not using Jenkinsfile-based pipelines and want a GUI-based workflow
+              chaining between jobs.
+
+            </li>
+
+            <li><strong>Trigger builds remotely</strong> – Useful for API-based triggers (needs an auth token)</li>
+          </ul>
+
+          <hr>
+
+          <h3>4️⃣ Build Environment</h3>
+          <img src="assets/S9.png"
+            style="max-width:100%; border:1px solid #ccc; border-radius:8px; padding:5px; background:#f9f9f9;">
+
+          <ul>
+            <li><strong>Delete workspace before build starts</strong> – Clean up previous files</li>
+            <li><strong>Inject environment variables</strong> – Useful for setting API keys, paths, etc.</li>
+          </ul>
+
+          <hr>
+
+          <h3>5️⃣ Build Steps</h3>
+          <p>💡 This is where Jenkins <strong>performs the main task</strong>, like compiling code, running tests, etc.
+          </p>
+          <ul>
+            <img src="assets/S10.png" alt=""
+              style="max-width:100%; border:1px solid #ccc; border-radius:8px; padding:5px; background:#f9f9f9;">
+            <li>
+              <strong>Execute Shell</strong> (Linux/macOS) or <strong>Windows Batch Command</strong>
+            </li>
+          </ul>
+          <div style="background:#f4f6f7; border-left: 4px solid #7f8c8d; padding:10px; font-family:monospace;">
+            echo "Running tests...";<br>
+          </div>
+          <ul>
+            <img src="assets/S11.png" alt=""
+              style="max-width:100%; border:1px solid #ccc; border-radius:8px; padding:5px; background:#f9f9f9;">
+            <li>
+              <strong>Execute Top Level Maven targets</strong></strong>
+            </li>
+          </ul>
+          <div style="background:#f4f6f7; border-left: 4px solid #7f8c8d; padding:10px; font-family:monospace;">
+            clean install
+
+          </div>
+          <img src="assets/S12.png" alt=""
+            style="max-width:100%; border:1px solid #ccc; border-radius:8px; padding:5px; background:#f9f9f9;">
+          <div style="background:#f4f6f7; border-left: 4px solid #7f8c8d; padding:10px; font-family:monospace;">
+            click on Advance and Add relative path link of the pom.xml file if you select source code manage
+            and if you select none then you can add the pom.xml file path manually where your pom.xml file is located in
+            your local machine
+          </div>
+          <hr>
+
+          <h3>6️⃣ Post-build Actions</h3>
+          <p>Defines what Jenkins should do <strong>after the build finishes</strong>:</p>
+          <ul>
+            <li><strong>Email Notifications</strong> – Notify team about success/failure</li>
+            <li><strong>Publish HTML Reports</strong> – Attach test reports like Extent, Allure</li>
+            <li><strong>Extended Email Notification</strong> – Attach test reports like Extent, Allure</li>
+            <li><strong>Trigger other jobs</strong> – Start downstream jobs after success/failure</li>
+          </ul>
+        </div>
+
+        <div
+          style="font-family: Arial, sans-serif; max-width: 900px; margin: auto; padding: 20px; background: #f9f9f9; border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.1);">
+          <h2 style=" color: #2c3e50;">📂 Jenkins Project Side Panel Options Explained</h2>
+
+          <div style="margin-top: 30px;">
+            <h3>📄 <strong>Status</strong></h3>
+            <ul>
+              <li>Shows recent builds, trends, and health report.</li>
+              <li>Think of it as the dashboard for the specific job.</li>
+            </ul>
+            <blockquote style="color: #555;">📊 Think of it as the dashboard of this specific job.</blockquote>
+          </div>
+
+          <div style="margin-top: 30px;">
+            <h3>🧬 <strong>Changes</strong></h3>
+            <ul>
+              <li>Displays Git commit messages and authors of the last build.</li>
+              <li>Helps track what triggered the build and who made the commit.</li>
+            </ul>
+            <blockquote style="color: #555;">👨‍💻 Tracks changes from version control (like Git).</blockquote>
+          </div>
+
+          <div style="margin-top: 30px;">
+            <h3>📁 <strong>Workspace</strong></h3>
+            <ul>
+              <li>Opens the job's workspace directory.</li>
+              <li>View reports, intermediate artifacts, and debug info.</li>
+            </ul>
+            <blockquote style="color: #555;">🧠 Great for troubleshooting and checking what the job is doing under the
+              hood.</blockquote>
+          </div>
+
+          <div style="margin-top: 30px;">
+            <h3>▶️ <strong>Build Now</strong></h3>
+            <ul>
+              <li>Triggers a new build using the latest code/config.</li>
+            </ul>
+            <blockquote style="color: #555;">⚡ Useful for manual triggering of builds.</blockquote>
+          </div>
+
+          <div style="margin-top: 30px;">
+            <h3>⚙️ <strong>Configure</strong></h3>
+            <ul>
+              <li>Edit Git settings, build steps, triggers, and post-build actions.</li>
+            </ul>
+            <blockquote style="color: #555;">🛠️ This is where you define the behavior of your job.</blockquote>
+          </div>
+
+          <div style="margin-top: 30px;">
+            <h3>🗑 <strong>Delete Project</strong></h3>
+            <ul>
+              <li>Deletes the job and its entire build history permanently.</li>
+            </ul>
+            <blockquote style="color: #c0392b;">❗ This action is irreversible. Use with caution.</blockquote>
+          </div>
+
+          <div style="margin-top: 30px;">
+            <h3>✏️ <strong>Rename</strong></h3>
+            <ul>
+              <li>Lets you change the project name and updates internal links.</li>
+            </ul>
+            <blockquote style="color: #555;">📛 Useful if project scope or naming conventions change.</blockquote>
+          </div>
+
+          <div style="margin-top: 40px;">
+            <h3>✅ <strong>Summary Table</strong></h3>
+            <table style="width: 100%; border-collapse: collapse; margin-top: 10px;">
+              <thead>
+                <tr style="background-color: #34495e; color: #fff;">
+                  <th style="padding: 10px; text-align: left;">Option</th>
+                  <th style="padding: 10px; text-align: left;">Description</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr style="background-color: #ecf0f1;">
+                  <td style="padding: 10px;">Status</td>
+                  <td style="padding: 10px;">Overview of recent builds and health</td>
+                </tr>
+                <tr>
+                  <td style="padding: 10px;">Changes</td>
+                  <td style="padding: 10px;">Git commits and contributors in last build</td>
+                </tr>
+                <tr style="background-color: #ecf0f1;">
+                  <td style="padding: 10px;">Workspace</td>
+                  <td style="padding: 10px;">Local folder where code is built</td>
+                </tr>
+                <tr>
+                  <td style="padding: 10px;">Build Now</td>
+                  <td style="padding: 10px;">Trigger build manually</td>
+                </tr>
+                <tr style="background-color: #ecf0f1;">
+                  <td style="padding: 10px;">Configure</td>
+                  <td style="padding: 10px;">Edit job behavior/settings</td>
+                </tr>
+                <tr>
+                  <td style="padding: 10px;">Delete</td>
+                  <td style="padding: 10px;">Remove job permanently</td>
+                </tr>
+                <tr style="background-color: #ecf0f1;">
+                  <td style="padding: 10px;">Rename</td>
+                  <td style="padding: 10px;">Change project name</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+
+      </section>
+
+    </section>
+
+    <section id="project">
+
+      <h2>🧠 Project Implementation</h2>
+
+      <h3>✅ Build Job from GitHub Repository</h3>
+      <p>Pulls the latest code and runs test automation scripts (TestNG/Cucumber).</p>
+
+      <h3>🕒 Cron Job Scheduling</h3>
+      <p>Jobs are scheduled using CRON expressions:</p>
+      <pre><code>0 2 * * *   # Runs job daily at 2 AM</code></pre>
+
+      <h3>📩 Email Notification After Build</h3>
+      <p>Sends email reports including build status, test summary, and HTML report.</p>
+
+      <h3>🚀 Trigger Build on GitHub Push (Webhook)</h3>
+      <p>Webhook triggers a Jenkins job automatically on push to <code>master</code> branch.</p>
+
+      <h2>⚙️ Jenkins Job Flow in Our Setup</h2>
+      <div class="diagram">
+        [GitHub Repo]<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;|<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;| (Push to master)<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;v<br>
+        [GitHub Webhook]<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;|<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;v<br>
+        [Jenkins Job Triggered]<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;+--> Pull latest code<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;+--> Execute test suite<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;+--> Generate reports<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;+--> Send email to team
+      </div>
+
+      <h2>🔧 Tools and Technologies Used</h2>
+      <table>
+        <tr>
+          <th>Tool</th>
+          <th>Purpose</th>
+        </tr>
+        <tr>
+          <td>Jenkins</td>
+          <td>Automation & CI</td>
+        </tr>
+        <tr>
+          <td>GitHub</td>
+          <td>Source Code Management</td>
+        </tr>
+        <tr>
+          <td>TestNG / Cucumber</td>
+          <td>Test Framework</td>
+        </tr>
+        <tr>
+          <td>Extent Reports / Allure</td>
+          <td>Test Report Generation</td>
+        </tr>
+        <tr>
+          <td>Email Plugin</td>
+          <td>Notification of test result</td>
+        </tr>
+      </table>
+
+      <h2>🏁 Jenkins Job Configuration Summary</h2>
+      <table>
+        <tr>
+          <th>Feature</th>
+          <th>Configured</th>
+        </tr>
+        <tr>
+          <td>GitHub Integration</td>
+          <td>✅</td>
+        </tr>
+        <tr>
+          <td>Cron Job Schedule</td>
+          <td>✅</td>
+        </tr>
+        <tr>
+          <td>Test Execution</td>
+          <td>✅</td>
+        </tr>
+        <tr>
+          <td>HTML Report Generation</td>
+          <td>✅</td>
+        </tr>
+        <tr>
+          <td>Email Notification</td>
+          <td>✅</td>
+        </tr>
+        <tr>
+          <td>Build on Push to <code>master</code></td>
+          <td>✅</td>
+        </tr>
+      </table>
+
+      <h2>📝 Conclusion</h2>
+      <p>
+        Jenkins provides a powerful and extensible automation system that helps us:
+      <ul>
+        <li>Save time on manual testing</li>
+        <li>Maintain consistency and reliability in test execution</li>
+        <li>Instantly detect issues via notifications</li>
+        <li>Automate builds and monitor pipeline status in real-time</li>
+      </ul>
+      This setup ensures we follow CI/CD best practices and improve our software delivery speed and quality.
+      </p>
+    </section>
+  </div>
+
+  <!-- GSAP -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+<script>
+  gsap.registerPlugin(ScrollTrigger);
+
+  // Animate each section smoothly
+  gsap.utils.toArray("section").forEach((section, index) => {
+    gsap.to(section, {
+      opacity: 1,
+      y: 0,
+      duration: 1,
+      delay: index * 0.1,
+      ease: "power2.out",
+      scrollTrigger: {
+        trigger: section,
+        start: "top 80%",
+        toggleActions: "play none none reverse",
+      },
+    });
+  });
+
+  // Active sidebar link on scroll
+  const sections = document.querySelectorAll("section");
+  const navLinks = document.querySelectorAll(".sidebar a");
+
+  window.addEventListener("scroll", () => {
+    let current = "";
+    sections.forEach(section => {
+      const sectionTop = section.offsetTop - 120;
+      if (scrollY >= sectionTop) {
+        current = section.getAttribute("id");
+      }
+    });
+
+    navLinks.forEach(link => {
+      link.classList.remove("active");
+      if (link.getAttribute("href") === `#${current}`) {
+        link.classList.add("active");
+      }
+    });
+  });
+</script>
+
+</body>
+
+</html>
