@@ -616,37 +616,44 @@
             </li>
 
             <li>
-  <strong>📧 Extended Email Notification</strong> – Send detailed build emails and attach test reports (like <code>Extent</code>, <code>Allure</code>, etc.).
+              <strong>📧 Extended Email Notification</strong> – Send detailed build emails and attach test reports (like
+              <code>Extent</code>, <code>Allure</code>, etc.).
 
-  <ul style="margin-top: 10px; list-style: disc; padding-left: 20px;">
+              <ul style="margin-top: 10px; list-style: disc; padding-left: 20px;">
 
-    <li>Go to the <strong>Post-build Actions</strong> section of the job</li>
-    <li>Select <strong>"Editable Email Notification"</strong> or <strong>"Extended Email Notification"</strong> (plugin-based)</li>
+                <li>Go to the <strong>Post-build Actions</strong> section of the job</li>
+                <li>Select <strong>"Editable Email Notification"</strong> or <strong>"Extended Email
+                    Notification"</strong> (plugin-based)</li>
 
-    <img src="assets/S23.png" alt="Extended Email Notification Section"
-         style="max-width:100%; border:1px solid #ccc; border-radius:8px; padding:6px; background:#f9f9f9; margin:10px 0;">
+                <img src="assets/S23.png" alt="Extended Email Notification Section"
+                  style="max-width:100%; border:1px solid #ccc; border-radius:8px; padding:6px; background:#f9f9f9; margin:10px 0;">
 
-    <li>Configure the following fields:</li>
+                <li>Configure the following fields:</li>
 
-    <ul style="list-style: circle; padding-left: 20px;">
+                <ul style="list-style: circle; padding-left: 20px;">
 
-      <li><strong>Project Recipient List:</strong> Add comma-separated email addresses (e.g., <code>test@example.com, dev@example.com</code>)</li>
-      
-      <li><strong>Content Type:</strong> Choose between <code>HTML (text/html)</code> or <code>Plain Text</code> depending on formatting needs</li>
-      
-      <li><strong>Subject & Content:</strong> Write your custom subject and body with environment variables like:<br>
-        <code>Build #${BUILD_NUMBER} - Status: ${BUILD_STATUS}</code></li>
-      
-      <li><strong>Attachments:</strong> Provide file paths to your HTML reports (e.g., <code>target/ExtentReport/index.html</code>)</li>
+                  <li><strong>Project Recipient List:</strong> Add comma-separated email addresses (e.g.,
+                    <code>test@example.com, dev@example.com</code>)</li>
 
-      <img src="assets/S24.png" alt="Email Attachment Config"
-           style="max-width:100%; border:1px solid #ccc; border-radius:8px; padding:6px; background:#f9f9f9; margin:10px 10px;">
+                  <li><strong>Content Type:</strong> Choose between <code>HTML (text/html)</code> or
+                    <code>Plain Text</code> depending on formatting needs</li>
 
-    </ul>
+                  <li><strong>Subject & Content:</strong> Write your custom subject and body with environment variables
+                    like:<br>
+                    <code>Build #${BUILD_NUMBER} - Status: ${BUILD_STATUS}</code>
+                  </li>
 
-    <li>Click <strong>Save</strong> and run a build to verify email delivery</li>
-  </ul>
-</li>
+                  <li><strong>Attachments:</strong> Provide file paths to your HTML reports (e.g.,
+                    <code>target/ExtentReport/index.html</code>)</li>
+
+                  <img src="assets/S24.png" alt="Email Attachment Config"
+                    style="max-width:100%; border:1px solid #ccc; border-radius:8px; padding:6px; background:#f9f9f9; margin:10px 10px;">
+
+                </ul>
+
+                <li>Click <strong>Save</strong> and run a build to verify email delivery</li>
+              </ul>
+            </li>
 
             <li>
               <strong>🔗 Trigger Other Jobs</strong> – Automatically start one or more downstream Jenkins jobs after
@@ -683,7 +690,7 @@
         </div>
 
         <div
-          style="font-family: Arial, sans-serif; max-width: 900px; margin: auto; padding: 20px; background: #f9f9f9; border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.1);">
+          style="font-family: Arial, sans-serif; max-width: 900px; padding: 20px; background: #f9f9f9; border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.1);">
           <h2 style=" color: #2c3e50;">📂 Jenkins Project Side Panel Options Explained</h2>
 
           <div style="margin-top: 30px;">
