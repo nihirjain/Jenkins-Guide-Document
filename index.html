@@ -58,6 +58,16 @@
       font-weight: 500;
     }
 
+    .sidebar a:nth-child(1){
+      display: block;
+      padding: 12px 24px;
+      text-decoration: none;
+      color: #ecf0f1;
+      transition: all 0.3s ease;
+      font-weight: 500;
+      font-size: 1.1rem;
+    }
+
     .sidebar a:hover,
     .sidebar a.active {
       background: var(--primary);
@@ -460,7 +470,9 @@
             <li><strong>Poll SCM</strong> – Jenkins checks the Git repo at intervals and builds if changes are found
             </li>
             <li><strong>GitHub hook trigger for GITScm polling</strong> – Trigger a build automatically on GitHub push
-              via webhook</li>
+              via webhook
+              <strong>To Initialize WebHook Refer to the Video &nbsp;</strong><a href="https://youtu.be/Uu8_cb0WRAw?si=PrqZrVu5jeNaF2NQ">here</a>
+            </li>
             <li>
               <strong>Build after other projects are built</strong> – This trigger allows you to chain multiple Jenkins
               jobs together. It ensures that this job runs automatically once one or more specified upstream jobs have
